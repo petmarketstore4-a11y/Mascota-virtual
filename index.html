@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Monedas</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f4f7fb;
+    padding: 20px;
+}
+
+.card{
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+button{
+    padding: 12px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+<h2>💰 Tus Monedas</h2>
+
+<h1 id="saldo">0</h1>
+
+<button onclick="ganar(5)">🐾 Alimentar Mascota (+5)</button>
+
+<button onclick="ganar(10)">🎮 Jugar (+10)</button>
+
+<button onclick="ganar(15)">🔍 Detectar Raza (+15)</button>
+
+<button onclick="ganar(50)">🎁 Recompensa Especial (+50)</button>
+
+</div>
+
+<script>
+
+let monedas = parseInt(localStorage.getItem("monedas")) || 0;
+
+function actualizar(){
+    document.getElementById("saldo").innerText = monedas;
+}
+
+function ganar(cantidad){
+    monedas += cantidad;
+    localStorage.setItem("monedas", monedas);
+    actualizar();
+}
+
+actualizar();
+
+</script>
+
+</body>
+</html>
