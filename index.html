@@ -3,206 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mascota Virtual</title>
+
+<title>Pet Life</title>
 
 <style>
 
 body{
-font-family:Arial,sans-serif;
-background:#f2f2f2;
-text-align:center;
 margin:0;
-padding:0;
+background:#f5f5f5;
+font-family:Arial,sans-serif;
+text-align:center;
 }
 
-header{
-background:white;
-padding:15px;
-box-shadow:0 2px 5px rgba(0,0,0,0.2);
-}
-
-.panel{
-background:white;
-margin:20px auto;
-padding:20px;
-width:90%;
-max-width:800px;
-border-radius:15px;
-}
-
-.barra{
+.barra img{
 width:100%;
-height:25px;
-background:#ddd;
-border-radius:20px;
-overflow:hidden;
-margin-bottom:15px;
+max-width:1200px;
 }
 
-.progreso{
-height:100%;
-width:50%;
-transition:0.5s;
+.escena{
+position:relative;
+max-width:1200px;
+margin:auto;
 }
 
-.felicidad{background:#ff5fa2;}
-.salud{background:#ff4d4d;}
-.higiene{background:#4da6ff;}
-.hambre{background:#ffb84d;}
-.sueno{background:#99ccff;}
-.energia{background:#cc66ff;}
+.fondo{
+width:100%;
+display:block;
+}
 
-#mascota{
-width:220px;
-margin:15px;
+.perrito{
+position:absolute;
+bottom:30px;
+left:35%;
+width:180px;
+}
+
+.perrito img{
+width:100%;
 }
 
 .botones{
-display:grid;
-grid-template-columns:repeat(3,1fr);
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
 gap:10px;
+padding:20px;
 }
 
-button{
-padding:12px;
-font-size:16px;
-border:none;
-border-radius:12px;
+.botones img{
+width:120px;
 cursor:pointer;
-background:#f7d8a5;
-font-weight:bold;
 }
 
-button:hover{
-transform:scale(1.05);
+@media(max-width:768px){
+
+.perrito{
+width:120px;
+left:30%;
 }
 
-.monedas{
-font-size:22px;
-font-weight:bold;
-color:#d68a00;
+.botones img{
+width:90px;
+}
+
 }
 
 </style>
 </head>
-
 <body>
 
-<header>
-<h1>🐶 Mascota Virtual</h1>
-<div class="monedas">🪙 Monedas: <span id="monedas">0</span></div>
-</header>
-
-<div class="panel">
-
-<img id="mascota" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/dog-2785074_1280.jpg">
-
-<h3 id="mensaje">Estoy muy contento de estar aquí.</h3>
-
-<p>❤️ Felicidad</p>
 <div class="barra">
-<div id="felicidad" class="progreso felicidad"></div>
+<img src="barra-removebg-preview.png">
 </div>
 
-<p>➕ Salud</p>
-<div class="barra">
-<div id="salud" class="progreso salud"></div>
+<div class="escena">
+
+<img class="fondo" src="casad.png">
+
+<div class="perrito">
+<img src="pelo-removebg-preview (2).png">
 </div>
 
-<p>💧 Higiene</p>
-<div class="barra">
-<div id="higiene" class="progreso higiene"></div>
-</div>
-
-<p>🍖 Hambre</p>
-<div class="barra">
-<div id="hambre" class="progreso hambre"></div>
-</div>
-
-<p>😴 Sueño</p>
-<div class="barra">
-<div id="sueno" class="progreso sueno"></div>
-</div>
-
-<p>⚡ Energía</p>
-<div class="barra">
-<div id="energia" class="progreso energia"></div>
 </div>
 
 <div class="botones">
 
-<button onclick="accion('felicidad',10,'Jugaste conmigo 😊')">
-❤️ Felicidad
-</button>
+<img src="boton de felicidad.png">
 
-<button onclick="accion('salud',10,'Me curaste 🩹')">
-➕ Salud
-</button>
+<img src="boton de salud.png">
 
-<button onclick="accion('higiene',10,'Me bañaste 🚿')">
-💧 Higiene
-</button>
+<img src="boton de higiene.png">
 
-<button onclick="accion('hambre',10,'¡Qué rica comida! 🍖')">
-🍖 Hambre
-</button>
+<img src="boton de hambre.png">
 
-<button onclick="accion('sueno',10,'Dormí muy bien 😴')">
-😴 Sueño
-</button>
+<img src="boton de sueño.png">
 
-<button onclick="accion('energia',10,'Tengo mucha energía ⚡')">
-⚡ Energía
-</button>
+<img src="boton de energia.png">
 
 </div>
-
-</div>
-
-<script>
-
-let monedas = 0;
-
-let estados = {
-felicidad:50,
-salud:50,
-higiene:50,
-hambre:50,
-sueno:50,
-energia:50
-};
-
-function actualizar(){
-
-for(let estado in estados){
-document.getElementById(estado).style.width =
-estados[estado] + "%";
-}
-
-}
-
-function accion(tipo,cantidad,mensaje){
-
-estados[tipo]+=cantidad;
-
-if(estados[tipo]>100){
-estados[tipo]=100;
-}
-
-monedas += 5;
-
-document.getElementById("monedas").innerText =
-monedas;
-
-document.getElementById("mensaje").innerText =
-mensaje;
-
-actualizar();
-}
-
-actualizar();
-
-</script>
 
 </body>
 </html>
