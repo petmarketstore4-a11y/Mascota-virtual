@@ -3,66 +3,201 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Monedas</title>
+<title>Mascota Virtual</title>
 
 <style>
+
 body{
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: #f4f7fb;
-    padding: 20px;
+font-family:Arial,sans-serif;
+background:#f2f2f2;
+text-align:center;
+margin:0;
+padding:0;
 }
 
-.card{
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    max-width: 400px;
-    margin: auto;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+header{
+background:white;
+padding:15px;
+box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+
+.panel{
+background:white;
+margin:20px auto;
+padding:20px;
+width:90%;
+max-width:800px;
+border-radius:15px;
+}
+
+.barra{
+width:100%;
+height:25px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+margin-bottom:15px;
+}
+
+.progreso{
+height:100%;
+width:50%;
+transition:0.5s;
+}
+
+.felicidad{background:#ff5fa2;}
+.salud{background:#ff4d4d;}
+.higiene{background:#4da6ff;}
+.hambre{background:#ffb84d;}
+.sueno{background:#99ccff;}
+.energia{background:#cc66ff;}
+
+#mascota{
+width:220px;
+margin:15px;
+}
+
+.botones{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
 }
 
 button{
-    padding: 12px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
+padding:12px;
+font-size:16px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+background:#f7d8a5;
+font-weight:bold;
 }
-</style>
 
+button:hover{
+transform:scale(1.05);
+}
+
+.monedas{
+font-size:22px;
+font-weight:bold;
+color:#d68a00;
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="card">
+<header>
+<h1>🐶 Mascota Virtual</h1>
+<div class="monedas">🪙 Monedas: <span id="monedas">0</span></div>
+</header>
 
-<h2>💰 Tus Monedas</h2>
+<div class="panel">
 
-<h1 id="saldo">0</h1>
+<img id="mascota" src="https://cdn.pixabay.com/photo/2017/09/25/13/12/dog-2785074_1280.jpg">
 
-<button onclick="ganar(5)">🐾 Alimentar Mascota (+5)</button>
+<h3 id="mensaje">Estoy muy contento de estar aquí.</h3>
 
-<button onclick="ganar(10)">🎮 Jugar (+10)</button>
+<p>❤️ Felicidad</p>
+<div class="barra">
+<div id="felicidad" class="progreso felicidad"></div>
+</div>
 
-<button onclick="ganar(15)">🔍 Detectar Raza (+15)</button>
+<p>➕ Salud</p>
+<div class="barra">
+<div id="salud" class="progreso salud"></div>
+</div>
 
-<button onclick="ganar(50)">🎁 Recompensa Especial (+50)</button>
+<p>💧 Higiene</p>
+<div class="barra">
+<div id="higiene" class="progreso higiene"></div>
+</div>
+
+<p>🍖 Hambre</p>
+<div class="barra">
+<div id="hambre" class="progreso hambre"></div>
+</div>
+
+<p>😴 Sueño</p>
+<div class="barra">
+<div id="sueno" class="progreso sueno"></div>
+</div>
+
+<p>⚡ Energía</p>
+<div class="barra">
+<div id="energia" class="progreso energia"></div>
+</div>
+
+<div class="botones">
+
+<button onclick="accion('felicidad',10,'Jugaste conmigo 😊')">
+❤️ Felicidad
+</button>
+
+<button onclick="accion('salud',10,'Me curaste 🩹')">
+➕ Salud
+</button>
+
+<button onclick="accion('higiene',10,'Me bañaste 🚿')">
+💧 Higiene
+</button>
+
+<button onclick="accion('hambre',10,'¡Qué rica comida! 🍖')">
+🍖 Hambre
+</button>
+
+<button onclick="accion('sueno',10,'Dormí muy bien 😴')">
+😴 Sueño
+</button>
+
+<button onclick="accion('energia',10,'Tengo mucha energía ⚡')">
+⚡ Energía
+</button>
+
+</div>
 
 </div>
 
 <script>
 
-let monedas = parseInt(localStorage.getItem("monedas")) || 0;
+let monedas = 0;
+
+let estados = {
+felicidad:50,
+salud:50,
+higiene:50,
+hambre:50,
+sueno:50,
+energia:50
+};
 
 function actualizar(){
-    document.getElementById("saldo").innerText = monedas;
+
+for(let estado in estados){
+document.getElementById(estado).style.width =
+estados[estado] + "%";
 }
 
-function ganar(cantidad){
-    monedas += cantidad;
-    localStorage.setItem("monedas", monedas);
-    actualizar();
+}
+
+function accion(tipo,cantidad,mensaje){
+
+estados[tipo]+=cantidad;
+
+if(estados[tipo]>100){
+estados[tipo]=100;
+}
+
+monedas += 5;
+
+document.getElementById("monedas").innerText =
+monedas;
+
+document.getElementById("mensaje").innerText =
+mensaje;
+
+actualizar();
 }
 
 actualizar();
