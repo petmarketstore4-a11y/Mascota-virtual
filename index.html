@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Pet Life</title>
 
 <style>
@@ -15,41 +14,6 @@ background:#f5f5f5;
 font-family:Arial,sans-serif;
 text-align:center;
 overflow-x:hidden;
-}
-
-/* BARRA SUPERIOR */
-.barra img{
-width:100%;
-max-width:1200px;
-}
-
-/* MONEDAS */
-.panel-monedas{
-position:fixed;
-top:15px;
-right:15px;
-z-index:999;
-}
-
-.barra-monedas{
-width:220px;
-}
-
-.contador{
-position:absolute;
-top:10px;
-left:15px;
-display:flex;
-align-items:center;
-gap:8px;
-font-size:28px;
-font-weight:bold;
-color:white;
-text-shadow:2px 2px 4px black;
-}
-
-.icono-moneda{
-width:40px;
 }
 
 /* ESCENA */
@@ -67,10 +31,9 @@ display:block;
 /* PERRITO */
 .perrito{
 position:absolute;
-bottom:15px;
+bottom:20px;
 left:30%;
 width:220px;
-animation:flotar 2.5s ease-in-out infinite;
 }
 
 .perrito img{
@@ -110,43 +73,25 @@ margin-bottom:10px;
 width:50%;
 height:100%;
 background:linear-gradient(to right,#4CAF50,#7CFC00);
-transition:0.4s;
+transition:0.5s;
 }
 
 /* BOTONES */
-.botones{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:10px;
-padding:20px;
-}
-
 .botones img{
-width:120px;
+width:110px;
 cursor:pointer;
-transition:0.2s;
+margin:5px;
 }
 
-.botones img:hover{
-transform:scale(1.05);
-}
-
-/* TIENDA */
-.tienda{
-margin:10px;
-}
-
-.tienda img{
-width:120px;
-cursor:pointer;
-}
-
-/* ANIMACIÓN */
-@keyframes flotar{
-0%{transform:translateY(0px);}
-50%{transform:translateY(-10px);}
-100%{transform:translateY(0px);}
+/* MONEDAS */
+.monedas{
+position:fixed;
+top:10px;
+right:10px;
+background:white;
+padding:10px;
+border-radius:10px;
+font-weight:bold;
 }
 
 </style>
@@ -154,19 +99,9 @@ cursor:pointer;
 
 <body>
 
-<!-- BARRA SUPERIOR -->
-<div class="barra">
-<img src="barra-removebg-preview.png">
-</div>
-
 <!-- MONEDAS -->
-<div class="panel-monedas">
-<img class="barra-monedas" src="barra de monedas.png">
-
-<div class="contador">
-<img class="icono-moneda" src="monedas.png">
-<span id="monedas">0</span>
-</div>
+<div class="monedas">
+💰 <span id="monedas">0</span>
 </div>
 
 <!-- ESCENA -->
@@ -175,11 +110,11 @@ cursor:pointer;
 <img class="fondo" src="casad.png">
 
 <div class="dialogo" id="dialogo">
-Hola humano, estoy feliz de verte.
+Hola humano 🐶
 </div>
 
 <div class="perrito">
-<img src="pelo.png">
+<img src="pelo-removebg-preview (2).png">
 </div>
 
 </div>
@@ -196,46 +131,49 @@ Hola humano, estoy feliz de verte.
 <h3>🧼 Higuiene</h3>
 <div class="barra"><div id="higuiene" class="relleno"></div></div>
 
-<h3>😊 Ánimo</h3>
-<div class="barra"><div id="animo" class="relleno"></div></div>
+<h3>😴 Sueño</h3>
+<div class="barra"><div id="sueno" class="relleno"></div></div>
+
+<h3>❤️ Salud</h3>
+<div class="barra"><div id="salud" class="relleno"></div></div>
+
+<h3>😊 Felicidad</h3>
+<div class="barra"><div id="felicidad" class="relleno"></div></div>
 
 </div>
 
 <!-- BOTONES -->
 <div class="botones">
 
-<img src="boton de felicidad.png" onclick="accion('felicidad',5)">
-<img src="boton de salud.png" onclick="accion('salud',3)">
-<img src="boton de higuiene.png" onclick="accion('higuiene',4)">
-<img src="boton de hambre.png" onclick="accion('hambre',5)">
-<img src="boton de sueño.png" onclick="accion('sueño',2)">
-<img src="boton de energia.png" onclick="accion('energia',4)">
+<img src="boton felicidad.png" onclick="accion('felicidad',5)">
+<img src="boton salud.png" onclick="accion('salud',5)">
+<img src="boton higuiene.png" onclick="accion('higuiene',5)">
+<img src="boton hambre.png" onclick="accion('hambre',5)">
+<img src="boton energia.png" onclick="accion('energia',5)">
+<img src="boton sueño.png" onclick="accion('sueno',5)">
 
-</div>
-
-<!-- TIENDA -->
-<div class="tienda">
-<img src="tienda.png" onclick="window.open('https://www.mercadolibre.com.pe','_blank')">
 </div>
 
 <script>
 
-let totalMonedas = 0;
+let monedas = 0;
 
 let stats = {
 hambre:80,
 energia:80,
 higuiene:80,
-animo:80
+sueno:80,
+salud:80,
+felicidad:80
 };
 
 const mensajes = {
-felicidad:"¡Soy feliz!",
-salud:"¡Me siento mejor!",
-higuiene:"¡Estoy limpio!",
-hambre:"¡Gracias por comida!",
-sueño:"Dormí bien",
-energia:"¡Tengo energía!"
+felicidad:"Soy feliz 😄",
+salud:"Me siento mejor ❤️",
+higuiene:"Estoy limpio 🧼",
+hambre:"Tengo comida 🍖",
+energia:"Tengo energía ⚡",
+sueno:"Descansé 😴"
 };
 
 function actualizar(){
@@ -243,48 +181,73 @@ function actualizar(){
 document.getElementById("hambre").style.width = stats.hambre + "%";
 document.getElementById("energia").style.width = stats.energia + "%";
 document.getElementById("higuiene").style.width = stats.higuiene + "%";
-document.getElementById("animo").style.width = stats.animo + "%";
+document.getElementById("sueno").style.width = stats.sueno + "%";
+document.getElementById("salud").style.width = stats.salud + "%";
+document.getElementById("felicidad").style.width = stats.felicidad + "%";
+
+cambiarPerro();
 
 }
 
-function accion(tipo, monedas){
+function accion(tipo, ganar){
 
-totalMonedas += monedas;
-document.getElementById("monedas").textContent = totalMonedas;
+monedas += ganar;
+document.getElementById("monedas").textContent = monedas;
+
+stats[tipo] += 15;
+if(stats[tipo] > 100) stats[tipo] = 100;
 
 document.getElementById("dialogo").textContent = mensajes[tipo];
 
-// LOGICA
-if(tipo === "hambre") stats.hambre += 15;
-if(tipo === "energia") stats.energia += 15;
-if(tipo === "higuiene") stats.higuiene += 15;
-if(tipo === "felicidad") stats.animo += 10;
-
 actualizar();
-
-speechSynthesis.cancel();
-let voz = new SpeechSynthesisUtterance(mensajes[tipo]);
-voz.lang="es-ES";
-speechSynthesis.speak(voz);
 
 }
 
-// BAJA AUTOMATICA
+function cambiarPerro(){
+
+let img = document.querySelector(".perrito img");
+
+if(stats.salud < 30){
+img.src = "perro enfermo.png";
+}
+else if(stats.hambre < 30){
+img.src = "perro con hambre.png";
+}
+else if(stats.energia < 30){
+img.src = "perro energia.png";
+}
+else if(stats.sueno < 30){
+img.src = "perro sueño.png";
+}
+else if(stats.higuiene < 30){
+img.src = "perro higuiene.png";
+}
+else if(stats.felicidad > 70){
+img.src = "perro felicidad.png";
+}
+else{
+img.src = "pelo-removebg-preview (2).png";
+}
+
+}
+
+/* BAJADA LENTA (2 MIN 30 SEG) */
 setInterval(()=>{
 
-stats.hambre -= 2;
+stats.hambre -= 1;
 stats.energia -= 1;
 stats.higuiene -= 1;
-stats.animo -= 1;
+stats.sueno -= 1;
+stats.salud -= 1;
+stats.felicidad -= 1;
 
-if(stats.hambre<0) stats.hambre=0;
-if(stats.energia<0) stats.energia=0;
-if(stats.higuiene<0) stats.higuiene=0;
-if(stats.animo<0) stats.animo=0;
+for(let i in stats){
+if(stats[i] < 0) stats[i] = 0;
+}
 
 actualizar();
 
-},4000);
+}, 2500);
 
 actualizar();
 
