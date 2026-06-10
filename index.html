@@ -36,10 +36,33 @@ position:absolute;
 bottom:30px;
 left:35%;
 width:180px;
+animation:flotar 2.5s ease-in-out infinite;
 }
 
 .perrito img{
 width:100%;
+}
+
+#dialogBox{
+position:absolute;
+right:10%;
+top:25%;
+width:280px;
+min-height:120px;
+background:white;
+border-radius:20px;
+padding:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
+
+#dialog{
+font-size:20px;
+color:#333;
+line-height:1.4;
 }
 
 .botones{
@@ -55,6 +78,18 @@ width:120px;
 cursor:pointer;
 }
 
+@keyframes flotar{
+0%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-10px);
+}
+100%{
+transform:translateY(0);
+}
+}
+
 @media(max-width:768px){
 
 .perrito{
@@ -64,6 +99,17 @@ left:30%;
 
 .botones img{
 width:90px;
+}
+
+#dialogBox{
+width:140px;
+min-height:80px;
+padding:10px;
+right:5%;
+}
+
+#dialog{
+font-size:14px;
 }
 
 }
@@ -84,6 +130,12 @@ width:90px;
 <img src="pelo-removebg-preview (2).png">
 </div>
 
+<div id="dialogBox">
+<div id="dialog">
+Hola humano, estoy feliz de verte.
+</div>
+</div>
+
 </div>
 
 <div class="botones">
@@ -101,6 +153,59 @@ width:90px;
 <img src="boton de energia.png">
 
 </div>
+
+<script>
+
+const dialogos = [
+
+"Hola humano, estoy feliz de verte.",
+"Gracias por cuidarme todos los días.",
+"Me encanta pasar tiempo contigo.",
+"Tengo un poco de hambre.",
+"Hoy me siento lleno de energía.",
+"Quiero jugar contigo un rato.",
+"Estoy muy contento de estar aquí.",
+"Necesito descansar un poco.",
+"Gracias por visitarme.",
+"Eres mi mejor amigo."
+
+];
+
+let indice = 0;
+
+function hablar(){
+
+const texto = dialogos[indice];
+
+document.getElementById("dialog").textContent = texto;
+
+if ('speechSynthesis' in window){
+
+speechSynthesis.cancel();
+
+const voz = new SpeechSynthesisUtterance(texto);
+
+voz.lang = "es-ES";
+voz.rate = 0.9;
+voz.pitch = 1;
+
+speechSynthesis.speak(voz);
+
+}
+
+indice++;
+
+if(indice >= dialogos.length){
+indice = 0;
+}
+
+}
+
+setTimeout(hablar,1000);
+
+setInterval(hablar,60000);
+
+</script>
 
 </body>
 </html>
