@@ -142,15 +142,15 @@ Hola humano 🐶
 
 </div>
 
-<!-- BOTONES -->
+<!-- BOTONES (TUS NOMBRES EXACTOS) -->
 <div class="botones">
 
-<img src="boton felicidad.png" onclick="accion('felicidad',5)">
-<img src="boton salud.png" onclick="accion('salud',5)">
-<img src="boton higuiene.png" onclick="accion('higuiene',5)">
-<img src="boton hambre.png" onclick="accion('hambre',5)">
-<img src="boton energia.png" onclick="accion('energia',5)">
-<img src="boton sueño.png" onclick="accion('sueno',5)">
+<img src="boton de felicidad .png" onclick="accion('felicidad',5)">
+<img src="boton de salud.png" onclick="accion('salud',5)">
+<img src="boton de higuiene.png" onclick="accion('higuiene',5)">
+<img src="boton de hambre.png" onclick="accion('hambre',5)">
+<img src="boton de energia.png" onclick="accion('energia',5)">
+<img src="boton de sueño.png" onclick="accion('sueno',5)">
 
 </div>
 
@@ -194,8 +194,10 @@ function accion(tipo, ganar){
 monedas += ganar;
 document.getElementById("monedas").textContent = monedas;
 
+if(stats[tipo] !== undefined){
 stats[tipo] += 15;
 if(stats[tipo] > 100) stats[tipo] = 100;
+}
 
 document.getElementById("dialogo").textContent = mensajes[tipo];
 
@@ -231,7 +233,7 @@ img.src = "pelo-removebg-preview (2).png";
 
 }
 
-/* BAJADA LENTA (2 MIN 30 SEG) */
+/* BAJADA LENTA (2 MIN 30 SEG REAL) */
 setInterval(()=>{
 
 stats.hambre -= 1;
