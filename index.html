@@ -18,14 +18,12 @@ overflow-x:hidden;
 }
 
 /* BARRA SUPERIOR */
-
 .barra img{
 width:100%;
 max-width:1200px;
 }
 
-/* PANEL MONEDAS */
-
+/* MONEDAS */
 .panel-monedas{
 position:fixed;
 top:15px;
@@ -41,11 +39,9 @@ width:220px;
 position:absolute;
 top:10px;
 left:15px;
-
 display:flex;
 align-items:center;
 gap:8px;
-
 font-size:28px;
 font-weight:bold;
 color:white;
@@ -57,7 +53,6 @@ width:40px;
 }
 
 /* ESCENA */
-
 .escena{
 position:relative;
 max-width:1200px;
@@ -70,12 +65,11 @@ display:block;
 }
 
 /* PERRITO */
-
 .perrito{
 position:absolute;
-bottom:30px;
-left:35%;
-width:180px;
+bottom:15px;
+left:30%;
+width:220px;
 animation:flotar 2.5s ease-in-out infinite;
 }
 
@@ -83,28 +77,43 @@ animation:flotar 2.5s ease-in-out infinite;
 width:100%;
 }
 
-/* GLOBO */
-
+/* DIALOGO */
 .dialogo{
 position:absolute;
 top:50px;
 right:80px;
-
 background:white;
 padding:15px;
-
 width:260px;
-
 border-radius:20px;
-
 box-shadow:0 4px 12px rgba(0,0,0,0.2);
-
 font-size:18px;
 font-weight:bold;
 }
 
-/* BOTONES */
+/* BARRAS */
+.estado{
+width:300px;
+margin:15px auto;
+}
 
+.barra{
+width:100%;
+height:20px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+margin-bottom:10px;
+}
+
+.relleno{
+width:50%;
+height:100%;
+background:linear-gradient(to right,#4CAF50,#7CFC00);
+transition:0.4s;
+}
+
+/* BOTONES */
 .botones{
 display:flex;
 justify-content:center;
@@ -123,55 +132,21 @@ transition:0.2s;
 transform:scale(1.05);
 }
 
-/* ANIMACIÓN */
-
-@keyframes flotar{
-
-0%{
-transform:translateY(0px);
+/* TIENDA */
+.tienda{
+margin:10px;
 }
 
-50%{
-transform:translateY(-10px);
-}
-
-100%{
-transform:translateY(0px);
-}
-
-}
-
-/* CELULAR */
-
-@media(max-width:768px){
-
-.perrito{
+.tienda img{
 width:120px;
-left:30%;
+cursor:pointer;
 }
 
-.botones img{
-width:90px;
-}
-
-.dialogo{
-width:150px;
-font-size:12px;
-right:10px;
-}
-
-.barra-monedas{
-width:160px;
-}
-
-.icono-moneda{
-width:30px;
-}
-
-.contador{
-font-size:20px;
-}
-
+/* ANIMACIÓN */
+@keyframes flotar{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-10px);}
+100%{transform:translateY(0px);}
 }
 
 </style>
@@ -180,29 +155,21 @@ font-size:20px;
 <body>
 
 <!-- BARRA SUPERIOR -->
-
 <div class="barra">
 <img src="barra-removebg-preview.png">
 </div>
 
 <!-- MONEDAS -->
-
 <div class="panel-monedas">
-
 <img class="barra-monedas" src="barra de monedas.png">
 
 <div class="contador">
-
 <img class="icono-moneda" src="monedas.png">
-
 <span id="monedas">0</span>
-
 </div>
-
 </div>
 
 <!-- ESCENA -->
-
 <div class="escena">
 
 <img class="fondo" src="casad.png">
@@ -212,66 +179,114 @@ Hola humano, estoy feliz de verte.
 </div>
 
 <div class="perrito">
-<img src="pelo-removebg-preview (2).png">
+<img src="pelo.png">
 </div>
+
+</div>
+
+<!-- BARRAS -->
+<div class="estado">
+
+<h3>🍖 Hambre</h3>
+<div class="barra"><div id="hambre" class="relleno"></div></div>
+
+<h3>⚡ Energía</h3>
+<div class="barra"><div id="energia" class="relleno"></div></div>
+
+<h3>🧼 Higuiene</h3>
+<div class="barra"><div id="higuiene" class="relleno"></div></div>
+
+<h3>😊 Ánimo</h3>
+<div class="barra"><div id="animo" class="relleno"></div></div>
 
 </div>
 
 <!-- BOTONES -->
-
 <div class="botones">
 
-<img src="boton de felicidad .png" onclick="accion('felicidad',5)">
-
+<img src="boton de felicidad.png" onclick="accion('felicidad',5)">
 <img src="boton de salud.png" onclick="accion('salud',3)">
-
-<img src="boton de higuiene.png" onclick="accion('higiene',4)">
-
+<img src="boton de higuiene.png" onclick="accion('higuiene',4)">
 <img src="boton de hambre.png" onclick="accion('hambre',5)">
-
 <img src="boton de sueño.png" onclick="accion('sueño',2)">
-
 <img src="boton de energia.png" onclick="accion('energia',4)">
 
+</div>
+
+<!-- TIENDA -->
+<div class="tienda">
+<img src="tienda.png" onclick="window.open('https://www.mercadolibre.com.pe','_blank')">
 </div>
 
 <script>
 
 let totalMonedas = 0;
 
-const mensajes = {
-
-felicidad:"¡Gracias! Ahora soy más feliz.",
-
-salud:"¡Me siento mucho más saludable!",
-
-higiene:"¡Qué limpio estoy ahora!",
-
-hambre:"¡Gracias por darme comida!",
-
-sueño:"Dormí muy bien.",
-
-energia:"¡Tengo mucha energía!"
-
+let stats = {
+hambre:80,
+energia:80,
+higuiene:80,
+animo:80
 };
 
-function accion(tipo, monedasGanadas){
+const mensajes = {
+felicidad:"¡Soy feliz!",
+salud:"¡Me siento mejor!",
+higuiene:"¡Estoy limpio!",
+hambre:"¡Gracias por comida!",
+sueño:"Dormí bien",
+energia:"¡Tengo energía!"
+};
 
-totalMonedas += monedasGanadas;
+function actualizar(){
 
+document.getElementById("hambre").style.width = stats.hambre + "%";
+document.getElementById("energia").style.width = stats.energia + "%";
+document.getElementById("higuiene").style.width = stats.higuiene + "%";
+document.getElementById("animo").style.width = stats.animo + "%";
+
+}
+
+function accion(tipo, monedas){
+
+totalMonedas += monedas;
 document.getElementById("monedas").textContent = totalMonedas;
 
 document.getElementById("dialogo").textContent = mensajes[tipo];
 
+// LOGICA
+if(tipo === "hambre") stats.hambre += 15;
+if(tipo === "energia") stats.energia += 15;
+if(tipo === "higuiene") stats.higuiene += 15;
+if(tipo === "felicidad") stats.animo += 10;
+
+actualizar();
+
 speechSynthesis.cancel();
-
-const voz = new SpeechSynthesisUtterance(mensajes[tipo]);
-
-voz.lang = "es-ES";
-
+let voz = new SpeechSynthesisUtterance(mensajes[tipo]);
+voz.lang="es-ES";
 speechSynthesis.speak(voz);
 
 }
+
+// BAJA AUTOMATICA
+setInterval(()=>{
+
+stats.hambre -= 2;
+stats.energia -= 1;
+stats.higuiene -= 1;
+stats.animo -= 1;
+
+if(stats.hambre<0) stats.hambre=0;
+if(stats.energia<0) stats.energia=0;
+if(stats.higuiene<0) stats.higuiene=0;
+if(stats.animo<0) stats.animo=0;
+
+actualizar();
+
+},4000);
+
+actualizar();
 
 </script>
 
