@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +14,49 @@ margin:0;
 background:#f5f5f5;
 font-family:Arial,sans-serif;
 text-align:center;
+overflow-x:hidden;
 }
+
+/* BARRA SUPERIOR */
 
 .barra img{
 width:100%;
 max-width:1200px;
 }
+
+/* PANEL MONEDAS */
+
+.panel-monedas{
+position:fixed;
+top:15px;
+right:15px;
+z-index:999;
+}
+
+.barra-monedas{
+width:220px;
+}
+
+.contador{
+position:absolute;
+top:10px;
+left:15px;
+
+display:flex;
+align-items:center;
+gap:8px;
+
+font-size:28px;
+font-weight:bold;
+color:white;
+text-shadow:2px 2px 4px black;
+}
+
+.icono-moneda{
+width:40px;
+}
+
+/* ESCENA */
 
 .escena{
 position:relative;
@@ -30,6 +68,8 @@ margin:auto;
 width:100%;
 display:block;
 }
+
+/* PERRITO */
 
 .perrito{
 position:absolute;
@@ -43,27 +83,27 @@ animation:flotar 2.5s ease-in-out infinite;
 width:100%;
 }
 
-#dialogBox{
+/* GLOBO */
+
+.dialogo{
 position:absolute;
-right:10%;
-top:25%;
-width:280px;
-min-height:120px;
+top:50px;
+right:80px;
+
 background:white;
-border-radius:20px;
 padding:15px;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-box-shadow:0 4px 15px rgba(0,0,0,0.2);
+
+width:260px;
+
+border-radius:20px;
+
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+
+font-size:18px;
+font-weight:bold;
 }
 
-#dialog{
-font-size:20px;
-color:#333;
-line-height:1.4;
-}
+/* BOTONES */
 
 .botones{
 display:flex;
@@ -76,19 +116,32 @@ padding:20px;
 .botones img{
 width:120px;
 cursor:pointer;
+transition:0.2s;
 }
 
-@keyframes flotar{
-0%{
-transform:translateY(0);
+.botones img:hover{
+transform:scale(1.05);
 }
+
+/* ANIMACIÓN */
+
+@keyframes flotar{
+
+0%{
+transform:translateY(0px);
+}
+
 50%{
 transform:translateY(-10px);
 }
+
 100%{
-transform:translateY(0);
+transform:translateY(0px);
 }
+
 }
+
+/* CELULAR */
 
 @media(max-width:768px){
 
@@ -101,109 +154,124 @@ left:30%;
 width:90px;
 }
 
-#dialogBox{
-width:140px;
-min-height:80px;
-padding:10px;
-right:5%;
+.dialogo{
+width:150px;
+font-size:12px;
+right:10px;
 }
 
-#dialog{
-font-size:14px;
+.barra-monedas{
+width:160px;
+}
+
+.icono-moneda{
+width:30px;
+}
+
+.contador{
+font-size:20px;
 }
 
 }
 
 </style>
 </head>
+
 <body>
+
+<!-- BARRA SUPERIOR -->
 
 <div class="barra">
 <img src="barra-removebg-preview.png">
 </div>
 
+<!-- MONEDAS -->
+
+<div class="panel-monedas">
+
+<img class="barra-monedas" src="barra de monedas.png">
+
+<div class="contador">
+
+<img class="icono-moneda" src="monedas.png">
+
+<span id="monedas">0</span>
+
+</div>
+
+</div>
+
+<!-- ESCENA -->
+
 <div class="escena">
 
 <img class="fondo" src="casad.png">
+
+<div class="dialogo" id="dialogo">
+Hola humano, estoy feliz de verte.
+</div>
 
 <div class="perrito">
 <img src="pelo-removebg-preview (2).png">
 </div>
 
-<div id="dialogBox">
-<div id="dialog">
-Hola humano, estoy feliz de verte.
-</div>
 </div>
 
-</div>
+<!-- BOTONES -->
 
 <div class="botones">
 
-<img src="boton de felicidad.png">
+<img src="boton de felicidad .png" onclick="accion('felicidad',5)">
 
-<img src="boton de salud.png">
+<img src="boton de salud.png" onclick="accion('salud',3)">
 
-<img src="boton de higiene.png">
+<img src="boton de higiene.png" onclick="accion('higiene',4)">
 
-<img src="boton de hambre.png">
+<img src="boton de hambre.png" onclick="accion('hambre',5)">
 
-<img src="boton de sueño.png">
+<img src="boton de sueño.png" onclick="accion('sueño',2)">
 
-<img src="boton de energia.png">
+<img src="boton de energia.png" onclick="accion('energia',4)">
 
 </div>
 
 <script>
 
-const dialogos = [
+let totalMonedas = 0;
 
-"Hola humano, estoy feliz de verte.",
-"Gracias por cuidarme todos los días.",
-"Me encanta pasar tiempo contigo.",
-"Tengo un poco de hambre.",
-"Hoy me siento lleno de energía.",
-"Quiero jugar contigo un rato.",
-"Estoy muy contento de estar aquí.",
-"Necesito descansar un poco.",
-"Gracias por visitarme.",
-"Eres mi mejor amigo."
+const mensajes = {
 
-];
+felicidad:"¡Gracias! Ahora soy más feliz.",
 
-let indice = 0;
+salud:"¡Me siento mucho más saludable!",
 
-function hablar(){
+higiene:"¡Qué limpio estoy ahora!",
 
-const texto = dialogos[indice];
+hambre:"¡Gracias por darme comida!",
 
-document.getElementById("dialog").textContent = texto;
+sueño:"Dormí muy bien.",
 
-if ('speechSynthesis' in window){
+energia:"¡Tengo mucha energía!"
+
+};
+
+function accion(tipo, monedasGanadas){
+
+totalMonedas += monedasGanadas;
+
+document.getElementById("monedas").textContent = totalMonedas;
+
+document.getElementById("dialogo").textContent = mensajes[tipo];
 
 speechSynthesis.cancel();
 
-const voz = new SpeechSynthesisUtterance(texto);
+const voz = new SpeechSynthesisUtterance(mensajes[tipo]);
 
 voz.lang = "es-ES";
-voz.rate = 0.9;
-voz.pitch = 1;
 
 speechSynthesis.speak(voz);
 
 }
-
-indice++;
-
-if(indice >= dialogos.length){
-indice = 0;
-}
-
-}
-
-setTimeout(hablar,1000);
-
-setInterval(hablar,60000);
 
 </script>
 
